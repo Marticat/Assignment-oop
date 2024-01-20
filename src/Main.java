@@ -1,55 +1,23 @@
-// Person.java
-public class Person implements Payable, Comparable<Person> {
-    private static int nextId = 1;
-    private int id;
-    public String name;
-    public String surname;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-    public String toString() {
-        return id + ". " + name + " " + surname;
+public class Main {
+    public static void main(String[] args) {
+        List<Person> people = new ArrayList<>();
+
+        people.add(new Employee("John", "Lennon", "Manager", 27045.78));
+        people.add(new Employee("George", "Harrison", "Developer", 50000.00));
+        people.add(new Student("Ringo", "Starr", 2.5));
+        people.add(new Student("Paul", "McCartney", 3.5));
+
+        Collections.sort(people);
+        printData(people);
     }
 
-    public Person() {
-        this.id = nextId++;
-    }
-
-    public Person(String name, String surname) {
-        this();
-        this.name = name;
-        this.surname = surname;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getPosition() {
-        return "Student";
-    }
-
-    @Override
-    public double getPaymentAmount() {
-        return 0.0;
-    }
-
-    @Override
-    public int compareTo(Person other) {
-        return Double.compare(this.getPaymentAmount(), other.getPaymentAmount());
+    public static void printData(Iterable<Person> people) {
+        for (Person person : people) {
+            System.out.println(person + " earns " + person.getPaymentAmount() + " tenge");
+        }
     }
 }
